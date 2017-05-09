@@ -1,20 +1,26 @@
 // in src/App.js
 import React from 'react';
-import PostIcon from 'material-ui/svg-icons/action/book';
+import EventIcon from 'material-ui/svg-icons/action/book';
 import UserIcon from 'material-ui/svg-icons/social/group';
-import { jsonServerRestClient, Admin, Resource, Delete } from 'admin-on-rest';
+import { Admin, Resource, Delete } from 'admin-on-rest';
+import myApiRestClient from './restClient';
 
-import { PostList, PostEdit, PostCreate } from './posts';
-import { UserList } from './users';
+//import { PostList, PostEdit, PostCreate } from './posts';
+import { EventList, EventEdit, EventCreate } from './events';
+import { UserList, UserEdit, UserCreate } from './users';
+import { TypeList, TypeEdit, TypeCreate } from './types';
+import { LogList } from './logs';
 
 import Dashboard from './Dashboard';
 import authClient from './authClient';
 
 
 const App = () => (
-    <Admin authClient={authClient} dashboard={Dashboard} restClient={jsonServerRestClient('http://jsonplaceholder.typicode.com')}>
-        <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} remove={Delete} icon={PostIcon}/>
-        <Resource name="users" list={UserList} icon={UserIcon}/>
+    <Admin authClient={authClient} dashboard={Dashboard} restClient={myApiRestClient}>
+        <Resource name="event" list={EventList} edit={EventEdit} create={EventCreate} remove={Delete} icon={EventIcon}/>
+        <Resource name="type" list={TypeList} edit={TypeEdit} create={TypeCreate} remove={Delete} />
+        <Resource name="log" list={LogList} />
+        <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} remove={Delete} icon={UserIcon}/>
     </Admin>
 );
 

@@ -28,7 +28,7 @@ export const PostList = (props) => (
 
 
 export const PostList = (props) => (
-    <List {...props}>
+    <List {...props} filters={<PostFilter />}>
         <Responsive
             small={
                 <SimpleList
