@@ -2,33 +2,19 @@
 import React from 'react';
 import { Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
 
-const PostFilter = (props) => (
+const statuses = [{id:'disable', name:'disable'}, {id:'enable', name:'enable'}, {id:'canceled', name:'canceled'}];
+
+const RouteFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
+        <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput>
     </Filter>
 );
 
-/*
-export const PostList = (props) => (
-    <List {...props} filters={<PostFilter />}>
-        <Datagrid>
-            <TextField source="id" />
-            <ReferenceField label="User" source="userId" reference="users">
-                <TextField source="name" />
-            </ReferenceField>
-            <TextField source="title" />
-            <TextField source="body" />
-            <EditButton />
-        </Datagrid>
-    </List>
-);*/
-
-
-export const PostList = (props) => (
-    <List {...props} filters={<PostFilter />}>
+export const RouteList = (props) => (
+    <List {...props} filters={<RouteFilter />}>
         <Responsive
             small={
                 <SimpleList
@@ -40,11 +26,11 @@ export const PostList = (props) => (
             medium={
                 <Datagrid>
                     <TextField source="id" />
-                    <ReferenceField label="User" source="userId" reference="users">
+                    <TextField source="name" />
+                    <ReferenceField label="Type" source="type" reference="type">
                         <TextField source="name" />
                     </ReferenceField>
-                    <TextField source="title" />
-                    <TextField source="body" />
+                    <TextField source="status" />
                     <EditButton />
                 </Datagrid>
             }
@@ -52,31 +38,31 @@ export const PostList = (props) => (
     </List>
 );
 
-const PostTitle = ({ record }) => {
-    return <span>Post {record ? `"${record.title}"` : ''}</span>;
+const RouteTitle = ({ record }) => {
+    return <span>Route {record ? `"${record.name}"` : ''}</span>;
 };
 
-export const PostEdit = (props) => (
-    <Edit title={<PostTitle />} {...props}>
+export const RouteEdit = (props) => (
+    <Edit title={<RouteTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
-            <ReferenceInput label="User" source="userId" reference="users">
+            <TextInput source="name" />
+            <ReferenceInput label="Type" source="type" reference="type">
                 <SelectInput optionText="name" />
             </ReferenceInput>
-            <TextInput source="title" />
-            <LongTextInput source="body" />
+            <SelectInput source="status" choices={statuses} />
         </SimpleForm>
     </Edit>
 );
 
-export const PostCreate = (props) => (
+export const RouteCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
+            <TextInput source="name" />
+            <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
                 <SelectInput optionText="name" />
             </ReferenceInput>
-            <TextInput source="title" />
-            <LongTextInput source="body" />
+            <SelectInput source="status" choices={statuses} />
         </SimpleForm>
     </Create>
 );

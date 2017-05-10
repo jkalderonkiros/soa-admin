@@ -1,13 +1,13 @@
 // in src/posts.js
 import React from 'react';
-import { Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
+import { DateField, Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
 
 const statuses = [{id:'pending', name:'pending'}, {id:'approved', name:'approved'}, {id:'denied', name:'denied'}];
 
 const EventFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="Type" source="type" reference="types" allowEmpty>
+        <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput>
     </Filter>
@@ -31,7 +31,7 @@ export const EventList = (props) => (
                     </ReferenceField>
                     <TextField source="content" />
                     <TextField source="status" />
-                    <TextField label="created At" source="createdAt" />
+                    <DateField label="Created At" source="createdAt" showTime />
                     <EditButton />
                 </Datagrid>
             }
