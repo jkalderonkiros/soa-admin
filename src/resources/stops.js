@@ -1,12 +1,15 @@
-// in src/posts.js
+// in src/stops.js
 import React from 'react';
-import { Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
+import { FunctionField, Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
 
 const statuses = [{id:'disable', name:'disable'}, {id:'enable', name:'enable'}, {id:'canceled', name:'canceled'}];
 
 const StopFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
+        <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
+            <SelectInput optionText="name" />
+        </ReferenceInput>
     </Filter>
 );
 
@@ -22,11 +25,8 @@ export const StopList = (props) => (
             }
             medium={
                 <Datagrid>
-                    <TextField source="id" />
                     <TextField source="name" />
-                    <ReferenceField label="Type" source="type" reference="type" >
-                        <TextField source="name" />
-                    </ReferenceField>
+                    <FunctionField label="Type" render={record => record.type_obj.name} />
                     <TextField source="status" />
                     <EditButton />
                 </Datagrid>
@@ -56,7 +56,7 @@ export const StopCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="name" />
-            <ReferenceInput label="Type" source="type" reference="type">
+            <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
                 <SelectInput optionText="name" />
             </ReferenceInput>
             <SelectInput source="status" choices={statuses} />

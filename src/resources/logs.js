@@ -1,6 +1,6 @@
-// in src/users.js
+// in src/logs.js
 import React from 'react';
-import { ReferenceField, DateField, List, Datagrid, TextField, Filter, TextInput, ReferenceInput, SelectInput } from 'admin-on-rest';
+import { FunctionField, DateField, List, Datagrid, TextField, Filter, TextInput, ReferenceInput, SelectInput } from 'admin-on-rest';
 
 const LogFilter = (props) => (
     <Filter {...props}>
@@ -15,10 +15,8 @@ export const LogList = (props) => (
     <List title="All logs" {...props} filters={<LogFilter />}>
         <Datagrid>
             <TextField source="id" />
-            <ReferenceField label="Type" source="type" reference="type" >
-                <TextField source="name" />
-            </ReferenceField>
-            
+            <FunctionField label="Type" render={record => record.type_obj.name} />
+            <TextField source="status" />
             <DateField label="Created At" source="createdAt" showTime />
         </Datagrid>
     </List>

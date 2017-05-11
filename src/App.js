@@ -10,6 +10,7 @@ import { UserList, UserEdit, UserCreate } from './resources/users';
 import { TypeList, TypeEdit, TypeCreate } from './resources/types';
 import { RouteList, RouteEdit, RouteCreate } from './resources/routes';
 import { StopList, StopEdit, StopCreate } from './resources/stops';
+import { RouteStopList, RouteStopEdit, RouteStopCreate } from './resources/routeXstops';
 import { LogList } from './resources/logs';
 
 import Dashboard from './Dashboard';
@@ -22,6 +23,7 @@ const App = () => (
 
         <Resource name="route" list={RouteList} edit={RouteEdit} create={RouteCreate} remove={Delete} />
         <Resource name="stop" list={StopList} edit={StopEdit} create={StopCreate} remove={Delete} />
+        <Resource name="routeXstop" list={RouteStopList} edit={RouteStopEdit} create={RouteStopCreate} remove={Delete} />
 
         <Resource name="type" list={TypeList} edit={TypeEdit} create={TypeCreate} remove={Delete} />
         <Resource name="log" list={LogList} />

@@ -1,6 +1,6 @@
-// in src/posts.js
+// in src/routes.js
 import React from 'react';
-import { Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
+import { FunctionField, Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
 
 const statuses = [{id:'disable', name:'disable'}, {id:'enable', name:'enable'}, {id:'canceled', name:'canceled'}];
 
@@ -25,11 +25,8 @@ export const RouteList = (props) => (
             }
             medium={
                 <Datagrid>
-                    <TextField source="id" />
                     <TextField source="name" />
-                    <ReferenceField label="Type" source="type" reference="type">
-                        <TextField source="name" />
-                    </ReferenceField>
+                    <FunctionField label="Type" render={record => record.type_obj.name} />
                     <TextField source="status" />
                     <EditButton />
                 </Datagrid>
@@ -47,7 +44,7 @@ export const RouteEdit = (props) => (
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="name" />
-            <ReferenceInput label="Type" source="type" reference="type">
+            <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
                 <SelectInput optionText="name" />
             </ReferenceInput>
             <SelectInput source="status" choices={statuses} />

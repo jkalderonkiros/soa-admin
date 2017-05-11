@@ -1,6 +1,6 @@
-// in src/posts.js
+// in src/events.js
 import React from 'react';
-import { DateField, Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
+import { FunctionField, DateField, Responsive, SimpleList, Filter, List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput } from 'admin-on-rest';
 
 const statuses = [{id:'pending', name:'pending'}, {id:'approved', name:'approved'}, {id:'denied', name:'denied'}];
 
@@ -26,9 +26,7 @@ export const EventList = (props) => (
             medium={
                 <Datagrid>
                     <TextField source="id" />
-                    <ReferenceField label="Type" source="type" reference="type" >
-                        <TextField source="name" />
-                    </ReferenceField>
+                    <FunctionField label="Type" render={record => record.type_obj.name} />
                     <TextField source="content" />
                     <TextField source="status" />
                     <DateField label="Created At" source="createdAt" showTime />
@@ -62,7 +60,6 @@ export const EventCreate = (props) => (
           <ReferenceInput label="Type" source="type" reference="type" allowEmpty>
             <SelectInput optionText="name" />
           </ReferenceInput>
-          <SelectInput source="status" choices={statuses} />
           <LongTextInput source="content" />
         </SimpleForm>
     </Create>

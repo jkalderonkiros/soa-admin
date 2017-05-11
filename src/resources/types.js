@@ -1,4 +1,4 @@
-// in src/users.js
+// in src/types.js
 import React from 'react';
 import { List, Datagrid, TextField, TextInput, Filter, Responsive, SimpleList, EditButton, DisabledInput, Create, Edit, SimpleForm } from 'admin-on-rest';
 
