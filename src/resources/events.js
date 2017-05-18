@@ -14,7 +14,7 @@ const EventFilter = (props) => (
 );
 
 export const EventList = (props) => (
-    <List {...props} filters={<EventFilter />}>
+    <List {...props} filters={<EventFilter />} sort={{ field: 'createdAt', order: 'DESC' }} perPage={10}>
         <Responsive
             small={
                 <SimpleList

@@ -29,18 +29,26 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       })
     };
 
-
     switch (type) {
     case GET_LIST: {
         const { page, perPage } = params.pagination;
-        const { field, order } = params.sort;
+        let { field, order } = params.sort;
         const query = {
-            sort: JSON.stringify([field, order]),
-            range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-            filter: JSON.stringify(params.filter),
+            skip: (page - 1) * perPage,
+            limit: perPage,
+            //range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
+            //filter: JSON.stringify(params.filter),
         };
-        //url = `${API_URL}/${resource}?${queryParameters(query)}`;
-        url = `${API_URL}/${resource}`;
+        if (field) {
+          if (!order)
+          {
+            order = 'ASC';
+          }
+          query['sort'] = `${field} ${order}`;
+        }
+        //console.log("query", query, page, perPage);
+        //console.log("query", queryParameters(query));
+        url = `${API_URL}/${resource}?${queryParameters(query)}`;
         break;
     }
     case GET_ONE:
@@ -92,12 +100,12 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
  * @returns {Object} REST response
  */
 const convertHTTPResponseToREST = (response, type, resource, params) => {
-    const { headers, json } = response;
+    const { json } = response;
     switch (type) {
     case GET_LIST:
       return {
-          data: json.map(x => x),
-          total: headers.get('content-range') !== null ? parseInt(headers.get('content-range').split('/').pop(), 10) : json.length,
+          data: json.data.map(x => x),
+          total: json.total,
       };
     case CREATE:
       return { data: { ...params.data, id: json.id } };
