@@ -1,1 +1,1 @@
-web: npm start
+web: yarnpkg start
