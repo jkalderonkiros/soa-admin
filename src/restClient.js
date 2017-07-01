@@ -10,7 +10,8 @@ import {
     fetchUtils,
 } from 'admin-on-rest';
 
-const API_URL = 'http://local.api.com:1337';
+//const API_URL = 'http://local.api.com:1337';
+const API_URL = 'https://soa-api-heroku.herokuapp.com';
 
 /**
  * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
